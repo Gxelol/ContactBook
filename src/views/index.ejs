@@ -1,26 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-  <%- include('includes/head'); %>
+<%- include('includes/head') %> 
+<%- include('includes/nav') %> 
 
-  <section class="container">
-    <h1><%= title %></h1>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
 
-    <!-- <h1>
-            <%# typeof title !== 'undefined'? title : undefined %>
-        </h1>
+    <div class="col-lg-8 my-3">
+      <h1 class="text-center">Contact Book</h1>
+      <p class="text-center lead">All your contacts are displayed below</p>
 
-        <p>
-            <%# for (let i = 0; i <= numbers.length; i++) {%> 
-            <%# numbers[i] %> <br>
-            <%#}%>
-        </p> -->
+      <%- include('includes/messages') %> 
 
-    <form action="/" method="post">
-      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-      <label>Client</label>
-      <input type="text" name="client" />
-      <button>Submit</button>
-    </form>
-  </section>
+      <div class="responsive-table">
+        <table class="table my-3">
+          <tr>
+            <td>Name</td>
+            <td>Surname</td>
+            <td>Number</td>
+            <td>Email</td>
+          </tr>
+        </table>
+      </div>
 
-  <%- include('includes/footer'); %>
+    </div>
+    
+    <div class="col-lg-2"></div>
+  </div>
+</div>
+
+<%- include('includes/footer') %> 
