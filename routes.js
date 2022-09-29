@@ -1,11 +1,17 @@
 const express = require('express');
 const route = express.Router();
+const homePageController = require('./src/controllers/homePageController');
 const homeController = require('./src/controllers/homeController');
 const loginController = require('./src/controllers/loginController');
 const contactController = require('./src/controllers/contactController')
 
-//Home routes
-route.get('/', homeController.index);
+const { loginRequired } = require('./src/middlewares/middleware')
+
+//HomePage
+route.get('/home', homePageController.index);
+
+//HomeLogged routes
+route.get('/', loginRequired, homeController.index);
 
 //Login routes
 route.get('/login/index', loginController.index);
@@ -14,8 +20,10 @@ route.post('/login/login', loginController.login);
 route.get('/login/logout', loginController.logout);
 
 //Contact routes
-route.get('/contact/index', contactController.index);
-route.post('/contact/register', contactController.register);
-route.get('/contact/index/:id', contactController.editIndex);
+route.get('/contact/index', loginRequired, contactController.index);
+route.post('/contact/register', loginRequired, contactController.register);
+route.get('/contact/index/:id', loginRequired, contactController.editIndex);
+route.post('/contact/edit/:id', loginRequired, contactController.edit);
+route.get('/contact/delete/:id', loginRequired, contactController.delete);
 
 module.exports = route;

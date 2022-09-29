@@ -17,12 +17,6 @@ function Contact(body) {
     this.contact = null
 }
 
-Contact.searchForId = async function(id) {
-    if (typeof id !== 'string') return;
-    const user = await ContactModel.findById(id);
-    return user;
-};
-
 Contact.prototype.register = async function() {
     this.validate();
     if (this.errors.length > 0) return;
@@ -33,10 +27,10 @@ Contact.prototype.validate = function() {
     this.cleanUp();
 
     //Email needs to be valid
-    if (this.body.email && !validator.isEmail(this.body.email)) this.errors.push('Invalid e-mail')
-    if (!this.body.name) this.errors.push('Name is a required field.')
+    if (this.body.email && !validator.isEmail(this.body.email)) this.errors.push('Invalid e-mail');
+    if (!this.body.name) this.errors.push('Name is a required field.');
     if (!this.body.email && !this.body.phone) {
-        this.errors.push('You need to register at least one contact field.') 
+        this.errors.push('You need to register at least one contact field.') ;
     }
 }
 
@@ -54,5 +48,32 @@ Contact.prototype.cleanUp = function() {
         email: this.body.email
     };
 }
+
+Contact.prototype.edit = async function(id) {
+    if (typeof id !== 'string') return;
+    this.validate();
+    if (this.errors.length > 0) return;
+    this.contact = await ContactModel.findByIdAndUpdate(id, this.body, {new: true});
+};
+
+//Static
+
+Contact.searchForId = async function(id) {
+    if (typeof id !== 'string') return;
+    const contact = await ContactModel.findById(id);
+    return contact;
+};
+
+Contact.searchContacts = async function(id) {
+    const contacts = await ContactModel.find()
+        .sort({ createdOn: -1 });
+    return contacts;
+};
+
+Contact.delete = async function(id) {
+    if (typeof id !== 'string') return;
+    const contact = await ContactModel.findOneAndDelete({ _id: id })
+    return contact;
+};
 
 module.exports = Contact;

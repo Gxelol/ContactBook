@@ -1,0 +1,31 @@
+<%- include('includes/head') %> 
+<%- include('includes/nav') %> 
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+
+    <div class="col-lg-8 my-3">
+      <h1 class="text-center">This is your virtual contact book</h1>
+      <p class="text-center lead">Log in or sign up to create your contact list</p>
+
+      <%- include('includes/messages') %> 
+
+      <div class="responsive-table">
+        <table class="table my-3">
+            <tr>
+                <td>Name</td>
+                <td>Surname</td>
+                <td>Phone</td>
+                <td>Email</td>
+            </tr>
+        </table>
+      </div>
+
+    </div>
+    
+    <div class="col-lg-2"></div>
+  </div>
+</div>
+
+<%- include('includes/footer') %> 
